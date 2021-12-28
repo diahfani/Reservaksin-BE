@@ -1,6 +1,7 @@
 package citizen
 
 import (
+	"context"
 	"time"
 )
 
@@ -28,11 +29,15 @@ type Domain struct {
 }
 
 type Service interface {
-	Register(data *Domain) (Domain, error)
-	Login(email string, password string) (string, error)
+	Register(ctx context.Context, data *Domain) (Domain, error)
+	Login(ctx context.Context, email, password string) (string, error)
+	GetByID(ctx context.Context, id int) (Domain, error)
+	// 	CreateBooking(ctx context.Context, nik int, nama string) (Domain, error)
 }
 
 type Repository interface {
-	GetByEmail(email string) (Domain, error)
+	GetByEmail(ctx context.Context, email string) (Domain, error)
 	Register(data *Domain) (Domain, error)
+	GetByID(id int) (Domain, error)
+	// CreateBooking(nik int, nama string) (Domain, error)
 }
