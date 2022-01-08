@@ -40,8 +40,8 @@ func (mysqlrepo *MysqlCitizenRepository) GetByEmail(email string) (citizen.Domai
 
 func (mysqlrepo *MysqlCitizenRepository) GetByNIK(nik string) (citizen.Domain, error) {
 	recCitizen := Citizen{}
+	// s, err := mysqlrepo.Conn.Where("nik = ?", strconv.Atoi(nik)).First(&recCitizen).Error;
 	err := mysqlrepo.Conn.Where("nik = ?", nik).First(&recCitizen).Error
-	// err:=mysqlrepo.Conn.Create(&recCitizen).Error
 	if err != nil {
 		return citizen.Domain{}, err
 	}

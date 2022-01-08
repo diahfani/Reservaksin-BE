@@ -26,8 +26,8 @@ type ControllerList struct {
 func (cl *ControllerList) RoutesRegister(e *echo.Echo) {
 	citizen := e.Group("user")
 	citizen.POST("/register", cl.CitizenController.Register)
-	citizen.POST("/login", cl.CitizenController.LoginByEmail)
-	citizen.POST("/login", cl.CitizenController.LoginByNIK)
+	citizen.POST("/loginEmail", cl.CitizenController.LoginByEmail)
+	citizen.POST("/loginNik", cl.CitizenController.LoginByNIK)
 
 	// admin := e.Group("admin")
 	// admin.POST("/register", cl.AdminController.Register)

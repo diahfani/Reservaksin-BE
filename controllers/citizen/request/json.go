@@ -27,7 +27,7 @@ type CitizenLoginEmail struct {
 }
 
 type CitizenLoginNIK struct {
-	Nik      uint64 `json:"email"`
+	Nik      string `json:"email"`
 	Password string `json:"password"`
 }
 
@@ -49,5 +49,19 @@ func (req *Citizen) ToDomain() *citizen.Domain {
 		Kota:               req.Kota,
 		Kecamatan:          req.Kecamatan,
 		Provinsi:           req.Provinsi,
+	}
+}
+
+func (req *CitizenLoginEmail) ToDomain() *citizen.Domain {
+	return &citizen.Domain{
+		Email:    req.Email,
+		Password: req.Password,
+	}
+}
+
+func (req *CitizenLoginNIK) ToDomain() *citizen.Domain {
+	return &citizen.Domain{
+		Nik:      req.Nik,
+		Password: req.Password,
 	}
 }

@@ -32,7 +32,7 @@ type Domain struct {
 type Service interface {
 	Register(data *Domain) (Domain, error)
 	LoginByEmail(email, password string) (string, error)
-	LoginByNIK(nik string, password string) (string, error)
+	LoginByNIK(nik, password string) (string, error)
 	// Update(id int) (Domain, error)
 	// Delete(id int) (Domain, error)
 

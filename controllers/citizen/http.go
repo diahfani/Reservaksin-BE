@@ -65,7 +65,7 @@ func (ctrl *CitizenController) LoginByNIK(c echo.Context) error {
 		return controllers.NewErrorResponse(c, http.StatusBadRequest, err)
 	}
 
-	token, err := ctrl.citizenService.LoginByEmail(string(req.Nik), req.Password)
+	token, err := ctrl.citizenService.LoginByNIK(req.Nik, req.Password)
 	if err != nil {
 		if strings.Contains(err.Error(), "incorrect nik or password") {
 			return controllers.NewErrorResponse(c, http.StatusBadRequest, err)
