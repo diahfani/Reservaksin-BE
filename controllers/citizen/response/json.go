@@ -8,10 +8,10 @@ import (
 type CitizenResponse struct {
 	Id                 string `json:"id"`
 	Email              string `json:"email"`
-	NoHp               int16  `json:"nohp"`
+	NoHp               string `json:"nohp"`
 	Username           string `json:"username"`
 	NoKK               uint64 `json:"nokk"`
-	Nik                uint64 `json:"nik"`
+	Nik                string `json:"nik"`
 	DateofBirth        string `json:"dob"`
 	FamilyRelationship string `json:"relationship"`
 	Gender             string `json:"gender"`

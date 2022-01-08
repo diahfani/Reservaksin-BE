@@ -4,11 +4,11 @@ import "Reservaksin-BE/businesses/citizen"
 
 type Citizen struct {
 	Email              string `json:"email"`
-	NoHp               int16  `json:"nohp"`
+	NoHp               string `json:"nohp"`
 	Username           string `json:"username"`
 	Password           string `json:"password"`
 	NoKK               uint64 `json:"nokk"`
-	Nik                uint64 `json:"nik"`
+	Nik                string `json:"nik"`
 	DateofBirth        string `json:"dob"`
 	FamilyRelationship string `json:"relationship"`
 	Gender             string `json:"gender"`
@@ -48,5 +48,6 @@ func (req *Citizen) ToDomain() *citizen.Domain {
 		Desa:               req.Desa,
 		Kota:               req.Kota,
 		Kecamatan:          req.Kecamatan,
+		Provinsi:           req.Provinsi,
 	}
 }

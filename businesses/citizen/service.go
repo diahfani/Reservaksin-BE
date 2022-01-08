@@ -4,6 +4,7 @@ import (
 	"Reservaksin-BE/app/middlewares"
 	"Reservaksin-BE/businesses"
 	"Reservaksin-BE/helpers/encrypt"
+	"Reservaksin-BE/helpers/nanoid"
 	"strings"
 )
 
@@ -13,7 +14,7 @@ type citizenService struct {
 	jwtAuth *middlewares.ConfigJWT
 }
 
-func NewService(repoCitizen Repository, jwtauth *middlewares.ConfigJWT) Service {
+func NewCitizenService(repoCitizen Repository, jwtauth *middlewares.ConfigJWT) Service {
 	return &citizenService{
 		citizenRepository: repoCitizen,
 		// contextTimeout:    timeout,
@@ -22,11 +23,16 @@ func NewService(repoCitizen Repository, jwtauth *middlewares.ConfigJWT) Service 
 }
 
 func (repo *citizenService) Register(citizenDomain *Domain) (Domain, error) {
-	existedCitizen, err := repo.citizenRepository.GetByNIK(uint64(citizenDomain.Nik))
+	existedCitizen, err := repo.citizenRepository.GetByNIK(citizenDomain.Nik)
 	if err != nil {
 		if !strings.Contains(err.Error(), "not found") {
 			return Domain{}, err
 		}
+	}
+
+	citizenDomain.Id, err = nanoid.GenerateNanoId()
+	if err != nil {
+		return Domain{}, businesses.ErrInternalServer
 	}
 
 	if existedCitizen != (Domain{}) {
@@ -65,15 +71,15 @@ func (repo *citizenService) LoginByEmail(email, password string) (string, error)
 
 }
 
-func (repo *citizenService) LoginByNIK(nik uint64, password string) (string, error) {
+func (repo *citizenService) LoginByNIK(nik, password string) (string, error) {
 	// ctx, cancel := context.WithTimeout(ctx, repo.contextTimeout)
 	// defer cancel()
 
-	if nik == 0 && strings.TrimSpace(password) == "" {
+	if nik == "" && strings.TrimSpace(password) == "" {
 		return "", businesses.ErrEmailPasswordNotFound
 	}
 
-	citizenDomain, err := repo.citizenRepository.GetByNIK(uint64(nik))
+	citizenDomain, err := repo.citizenRepository.GetByNIK(nik)
 	// citizenNIK, err := repo.citizenRepository.GetByNIK(ctx, nik)
 
 	if err != nil {
@@ -88,11 +94,3 @@ func (repo *citizenService) LoginByNIK(nik uint64, password string) (string, err
 	return token, nil
 
 }
-
-// func (repo *citizenService) GetByNIK(ctx context.Context, id int) (Domain, error) {
-// 	resp, err := repo.citizenRepository.GetByNIK(id)
-// 	if err != nil {
-// 		return Domain{}, err
-// 	}
-// 	return resp, nil
-// }

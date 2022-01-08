@@ -10,7 +10,7 @@
     "host": "localhost",
     "port": "3308",
     "user": "root",
-    "pass": "",
+    "pass": "diahaufa123",
     "name": "reservaksin"
   },
   "jwt": {

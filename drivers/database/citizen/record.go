@@ -10,11 +10,11 @@ type Citizen struct {
 	gorm.Model
 	Id                 string `json:"id" gorm:"Primarykey; Not Null"`
 	Email              string `json:"email"`
-	NoHp               int16  `json:"nohp"`
+	NoHp               string `json:"nohp"`
 	Username           string `json:"username"`
 	Password           string `json:"password"`
 	NoKK               uint64 `json:"nokk"`
-	Nik                uint64 `json:"nik" gorm:"unique"`
+	Nik                string `json:"nik" gorm:"unique"`
 	DateofBirth        string `json:"dob"`
 	FamilyRelationship string `json:"relationship"`
 	Gender             string `json:"gender"`
@@ -24,7 +24,7 @@ type Citizen struct {
 	Desa               string `json:"desa"`
 	Kota               string `json:"kota"`
 	Kecamatan          string `json:"kecamatan"`
-	Provinsi           string `json:"Provinsi"`
+	Provinsi           string `json:"provinsi"`
 	ImageURI           string `json:"imageURI"`
 }
 
